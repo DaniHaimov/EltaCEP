@@ -39,7 +39,7 @@ def create_rule_route():
 if __name__ == '__main__':
     db_connection_params = {
         "host": os.getenv('DB_HOST'),
-        "port": os.getenv('DB_PORT'),
+        "port": int(os.getenv('DB_PORT')),
         "dbname": os.getenv('DB_NAME'),
         "user": os.getenv('DB_USER'),
         "password": os.getenv('DB_PASS'),
@@ -55,8 +55,10 @@ if __name__ == '__main__':
     msg_broker_pass = os.getenv("MESSAGE_BROKER_PASS")
     msg_broker_name = os.getenv("MESSAGE_BROKER_NAME")
 
-    amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}'
-    params = pika.URLParameters(amqp_url)
+    # amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/v%2fhost'
+    # params = pika.URLParameters(amqp_url)
+
+    params = pika.ConnectionParameters(host=msg_broker_host)
 
     msg_broker = ProducerMessageBroker(params, msg_broker_name)
     msg_broker.open_connection()
