@@ -1,0 +1,10 @@
+{
+  "device": "device_name",
+  "sensor_type":  "sensor_name",
+  "operator": "L",
+  "unusual_value": 42, // if compare_to_last_event it's calculate the diff in seconds
+  "rule_description": "device_name: sensor higher than 42",
+  // optional
+  "compare_to_last_event": false
+}
+
