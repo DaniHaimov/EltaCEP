@@ -26,6 +26,7 @@ def create_event():
     send_unusual_events(unusual_rules)
 
     result = events_crud.create_event(event_data)
+    result['status'] = 'Event Checked'
     return jsonify(result), 201
 
 
@@ -33,27 +34,28 @@ def create_event():
 def create_rule_route():
     rule_data = request.get_json()
     result = rules_crud.create_rule(rule_data)
+    result['status'] = 'Rule Created'
     return jsonify(result), 201
 
 
 if __name__ == '__main__':
     db_connection_params = {
-        "host": os.getenv('DB_HOST'),
-        "port": int(os.getenv('DB_PORT')),
-        "dbname": os.getenv('DB_NAME'),
-        "user": os.getenv('DB_USER'),
-        "password": os.getenv('DB_PASS'),
+        'host': os.getenv('DB_HOST', 'localhost'),
+        'port': int(os.getenv('DB_PORT', '5432')),
+        'dbname': os.getenv('DB_NAME', 'cep'),
+        'user': os.getenv('DB_USER', 'postgres'),
+        'password': os.getenv('DB_PASS', 'postgres'),
     }
 
     events_crud = EventsCRUD(**db_connection_params)
     rules_crud = RulesCRUD(**db_connection_params)
     cep = CEP(events_crud, rules_crud)
 
-    msg_broker_host = os.getenv("MESSAGE_BROKER_HOST")
-    msg_broker_port = os.getenv("MESSAGE_BROKER_PORT")
-    msg_broker_user = os.getenv("MESSAGE_BROKER_USER")
-    msg_broker_pass = os.getenv("MESSAGE_BROKER_PASS")
-    msg_broker_name = os.getenv("MESSAGE_BROKER_NAME")
+    msg_broker_host = os.getenv('MESSAGE_BROKER_HOST', 'localhost')
+    msg_broker_port = os.getenv('MESSAGE_BROKER_PORT', '5672')
+    msg_broker_user = os.getenv('MESSAGE_BROKER_USER', 'guest')
+    msg_broker_pass = os.getenv('MESSAGE_BROKER_PASS', 'guest')
+    msg_broker_name = os.getenv('MESSAGE_BROKER_NAME', 'event_queue')
 
     # amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/v%2fhost'
     # params = pika.URLParameters(amqp_url)
