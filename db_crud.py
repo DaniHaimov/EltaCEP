@@ -121,7 +121,7 @@ class RulesCRUD:
         sql = f'SELECT rule_description FROM {self.__table_name} WHERE rule_id = %s'
         self.__cursor.execute(sql, (rule_id,))
         rule_description = self.__cursor.fetchone()[0]
-        return {"rule_description": rule_description}
+        return rule_description
 
     def read_specific_sensor_rules(self, rule_data):
         sql = f'SELECT * FROM {self.__table_name} WHERE device LIKE %s AND sensor_type LIKE %s'
