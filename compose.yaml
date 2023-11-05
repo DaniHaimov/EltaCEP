@@ -12,7 +12,7 @@
 services:
   db:
     image: postgres
-    container_name: 'postgresdb'
+    container_name: postgresdb
     environment:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=postgres"
@@ -20,16 +20,16 @@ services:
     ports:
       - "55000:5432"
     volumes:
-      - db-data:/tmp/data
-#    healthcheck:
-#      test: [ "CMD", "pg_isready" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   rabbitmq:
-    image: rabbitmq
-    container_name: 'rabbitmq'
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     ports:
       - "55001:5672"
       - "55002:15672"
@@ -38,6 +38,11 @@ services:
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
       - rabbitmq_go_net
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   server:
     container_name: 'app'
@@ -49,9 +54,9 @@ services:
       - .env
     depends_on:
       db:
-        condition: service_completed_successfully
+        condition: service_healthy
       rabbitmq:
-        condition: service_completed_successfully
+        condition: service_healthy
 
 volumes:
    db-data:
