@@ -172,3 +172,5 @@ cython_debug/
 instance/*
 !instance/.gitignore
 
+comments.txt
+
