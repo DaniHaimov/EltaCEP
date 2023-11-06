@@ -3,7 +3,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 from db_crud import EventsCRUD, RulesCRUD
-from event_processing import CEP
+from event_processing import ComparingEventProcessing
 
 load_dotenv()
 
@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     events_crud = EventsCRUD(**db_connection_params)
     rules_crud = RulesCRUD(**db_connection_params)
-    cep = CEP(events_crud, rules_crud)
+    cep = ComparingEventProcessing(events_crud, rules_crud)
 
     new_rule = {
         "device": "Car3",

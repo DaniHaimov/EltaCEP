@@ -15,7 +15,7 @@ class Operators(Enum):
     NEL = lambda a, b: not (float(a) <= float(b))
 
 
-class CEP:
+class ComparingEventProcessing:
     def __init__(self, events_crud, rules_crud):
         self.events_crud = events_crud
         self.rules_crud = rules_crud

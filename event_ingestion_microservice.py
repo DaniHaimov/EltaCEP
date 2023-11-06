@@ -3,7 +3,7 @@ import os
 import pika
 from flask import Flask, request, jsonify
 from db_crud import EventsCRUD, RulesCRUD
-from event_processing import CEP
+from event_processing import ComparingEventProcessing
 from dotenv import load_dotenv
 
 from message_broker import ProducerMessageBroker
@@ -31,7 +31,7 @@ def create_event():
 
 
 @app.route('/rules', methods=['POST'])
-def create_rule_route():
+def create_rule():
     rule_data = request.get_json()
     result = rules_crud.create_rule(rule_data)
     result['status'] = 'Rule Created'
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     events_crud = EventsCRUD(**db_connection_params)
     rules_crud = RulesCRUD(**db_connection_params)
-    cep = CEP(events_crud, rules_crud)
+    cep = ComparingEventProcessing(events_crud, rules_crud)
 
     msg_broker_host = os.getenv('MESSAGE_BROKER_HOST', 'localhost')
     msg_broker_port = os.getenv('MESSAGE_BROKER_PORT', '5672')

@@ -40,12 +40,6 @@ class EventsCRUD:
 
         return {'event_id': event_id}
 
-    def read_events(self):
-        sql = f'SELECT * FROM {self.__table_name}'
-        self.__cursor.execute(sql)
-        events = self.__cursor.fetchall()
-        return [dict(zip([desc[0] for desc in self.__cursor.description], event)) for event in events]
-
     def read_last_sensor_event(self, event_data):
         # return the last value that recorded by specific sensor
         sql = (f'SELECT sensor_value, created_at '
@@ -86,7 +80,7 @@ class RulesCRUD:
                               f'(rule_id SERIAL PRIMARY KEY, '
                               f'device VARCHAR(255) NOT NULL, '
                               f'sensor_type VARCHAR(255) NOT NULL, '
-                              f'operator VARCHAR(8) NOT NULL, '
+                              f'operator VARCHAR(7) NOT NULL, '
                               f'unusual_value VARCHAR(255) NOT NULL, '
                               f'rule_description VARCHAR(255) NOT NULL, '
                               f'compare_to_last_event BOOLEAN NOT NULL, '
@@ -110,12 +104,6 @@ class RulesCRUD:
         self.__conn.commit()
 
         return {"rule_id": rule_id}
-
-    def read_rules(self):
-        sql = f'SELECT * FROM {self.__table_name}'
-        self.__cursor.execute(sql)
-        events = self.__cursor.fetchall()
-        return [dict(zip([desc[0] for desc in self.__cursor.description], event)) for event in events]
 
     def get_rule_description(self, rule_id):
         sql = f'SELECT rule_description FROM {self.__table_name} WHERE rule_id = %s'
