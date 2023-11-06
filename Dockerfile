@@ -46,5 +46,5 @@ COPY . .
 EXPOSE 5000
 
 # Run the application.
-CMD python ./alert_and_notification_microservice.py &
-CMD python ./event_ingestion_microservice.py
+CMD python3 ./event_ingestion_microservice.py &
+CMD python3 ./alert_and_notification_microservice.py &

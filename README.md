@@ -45,7 +45,13 @@ If you want to change the default port, you can change it in the `compose.yml` f
 ## Running the Application
 ```bash
 docker compose up --build
-docker-compose up --build //for old versions
+docker-compose up --build #for old versions
+```
+
+## Stop the Application
+```bash
+docker compose down 
+#if you want remove to remove the volumes add --volumes flag
 ```
 ## Diagrams
 ### Services Diagram
@@ -118,7 +124,7 @@ The event stored on DB and delivered to `Event Processing` to process rules and 
 
 ## Dependencies
 This application requires the following Python packages:
-* Flask
+* flask
 * pika
 * psycopg2-binary
 * dotenv
@@ -128,3 +134,11 @@ Install dependencies using `pip`:
 ```bash
 pip install -r requirements.txt
 ```
+
+## Notes Limitations
+1. When composing the project on docker, it's failed to connect to RabbitMQ container you can run the services in your remote:
+    ```bash
+    python3 ./event_ingestion_microservice.py &
+    python3 ./alert_and_notification_microservice.py &
+    ```
+2. Drone simulator is on development.
