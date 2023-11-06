@@ -31,6 +31,7 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 tests
+diagrams
 jsons_examples
 LICENSE
 README.md
