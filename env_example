@@ -1,10 +1,10 @@
 DB_NAME='cep'
 DB_USER='postgres'
 DB_PASS='postgres'
-DB_HOST='postgres'
+DB_HOST='localhost'
 DB_PORT='5432'
 
-MESSAGE_BROKER_HOST='rabbitmq'
+MESSAGE_BROKER_HOST='localhost'
 MESSAGE_BROKER_PORT='5672'
 MESSAGE_BROKER_USER='guest'
 MESSAGE_BROKER_PASS='guest'
