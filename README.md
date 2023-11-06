@@ -47,6 +47,12 @@ If you want to change the default port, you can change it in the `compose.yml` f
 docker compose up --build
 docker-compose up --build //for old versions
 ```
+## Diagrams
+### Services Diagram
+![Services Diagram](/diagrams/ProjectDiagrams-services.drawio.png)
+
+### Services Diagram
+![Services Diagram](/diagrams/ProjectDiagrams-tables.drawio.png)
 
 ## Endpoints
 The application provides endpoints for event management with JSON responses:
