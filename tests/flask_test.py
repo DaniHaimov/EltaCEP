@@ -2,6 +2,7 @@ import requests
 
 if __name__ == '__main__':
     base_url = 'http://localhost:5000'
+
     requests.post(url=f'{base_url}/rules', json={
         "device": "device_name",
         "sensor_type":  "sensor_name",

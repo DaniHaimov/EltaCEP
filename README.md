@@ -7,7 +7,6 @@ and includes CRUD operations interacting with a PostgreSQL database.
 
 ## Microservices
 - **Event Ingestion**: Handles the ingestion of events into the system.
-- **Event Processing**: Processes the events according to defined rules and triggers alerts.
 - **Alert and Notification**: Sends out notifications based on the processed events.
 
 ## Features
