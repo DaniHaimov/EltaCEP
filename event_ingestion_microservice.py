@@ -40,7 +40,7 @@ def create_rule():
 
 if __name__ == '__main__':
     db_connection_params = {
-        'host': os.getenv('DB_HOST', 'localhost'),
+        'host': os.getenv('DB_HOST', '0.0.0.0'),
         'port': int(os.getenv('DB_PORT', '5432')),
         'dbname': os.getenv('DB_NAME', 'cep'),
         'user': os.getenv('DB_USER', 'postgres'),
@@ -51,16 +51,14 @@ if __name__ == '__main__':
     rules_crud = RulesCRUD(**db_connection_params)
     cep = ComparingEventProcessing(events_crud, rules_crud)
 
-    msg_broker_host = os.getenv('MESSAGE_BROKER_HOST', 'localhost')
+    msg_broker_host = os.getenv('MESSAGE_BROKER_HOST', '0.0.0.0')
     msg_broker_port = os.getenv('MESSAGE_BROKER_PORT', '5672')
     msg_broker_user = os.getenv('MESSAGE_BROKER_USER', 'guest')
     msg_broker_pass = os.getenv('MESSAGE_BROKER_PASS', 'guest')
     msg_broker_name = os.getenv('MESSAGE_BROKER_NAME', 'event_queue')
 
-    # amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/v%2fhost'
-    # params = pika.URLParameters(amqp_url)
-
-    params = pika.ConnectionParameters(host=msg_broker_host)
+    amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/%2F'
+    params = pika.URLParameters(amqp_url)
 
     msg_broker = ProducerMessageBroker(params, msg_broker_name)
     msg_broker.open_connection()

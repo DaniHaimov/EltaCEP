@@ -20,15 +20,8 @@ if __name__ == '__main__':
     msg_broker_pass = os.getenv("MESSAGE_BROKER_PASS")
     msg_broker_name = os.getenv("MESSAGE_BROKER_NAME")
 
-    # amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/%2F'
-    # params = pika.URLParameters(amqp_url)
-
-    # params = pika.ConnectionParameters(host=msg_broker_host)
-
-    params = pika.ConnectionParameters(msg_broker_host,
-                                       msg_broker_port,
-                                       '/',
-                                       pika.PlainCredentials(msg_broker_user, msg_broker_pass))
+    amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/%2F'
+    params = pika.URLParameters(amqp_url)
 
     msg_broker = ConsumerMessageBroker(params, msg_broker_name, _def_callback)
 
