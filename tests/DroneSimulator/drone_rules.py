@@ -50,8 +50,8 @@ class RulesGUI:
         requests.post(self.rules_url, json=self.entries)
 
 
-def add_rule(self, sensor_type: str, operator: str, unusual_value, rule_description, compare_to_last_event: bool = False):
-    requests.post(self.rules_url, json={
+def add_rule(sensor_type: str, operator: str, unusual_value, rule_description, compare_to_last_event: bool = False):
+    requests.post('http://127.0.0.1:5000/rules', json={
         "device": "drone",
         "sensor_type": sensor_type,
         "operator": operator,
@@ -62,7 +62,7 @@ def add_rule(self, sensor_type: str, operator: str, unusual_value, rule_descript
 
 
 def add_rules():
-    add_rule("height", "G", 100, "drone: higher than 100")
+    add_rule("cpu_usage", "G", 50.6, "drone: cpu_usage higher than 50.6")
 
 
 if __name__ == '__main__':

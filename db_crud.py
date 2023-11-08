@@ -111,10 +111,9 @@ class RulesCRUD:
         rule_description = self.__cursor.fetchone()[0]
         return rule_description
 
-    def read_specific_sensor_rules(self, rule_data):
+    def read_specific_sensor_rules(self, device: str, sensor_type: str):
         sql = f'SELECT * FROM {self.__table_name} WHERE device LIKE %s AND sensor_type LIKE %s'
-        device = rule_data['device']
-        sensor_type = rule_data['sensor_type']
+
         self.__cursor.execute(sql, (device, sensor_type))
         rules = self.__cursor.fetchall()
         return [dict(zip([desc[0] for desc in self.__cursor.description], rule)) for rule in rules]

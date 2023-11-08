@@ -21,9 +21,12 @@ class ComparingEventProcessing:
         self.rules_crud = rules_crud
 
     def check_event(self, event):
-        rules = self.rules_crud.read_specific_sensor_rules(event)
+        device = event['device']
+        sensor_type = event['sensor_type']
+        rules = self.rules_crud.read_specific_sensor_rules(device, sensor_type)
         sensor_value = event['sensor_value']
         unusual_events = list()
+        last_sensor_event = self.events_crud.read_last_sensor_event(event)
         for rule in rules:
             rule_operator = rule['operator']
             unusual_value = rule['unusual_value']
@@ -31,7 +34,6 @@ class ComparingEventProcessing:
 
             checked_value = sensor_value
             if compare_to_last_event:
-                last_sensor_event = self.events_crud.read_last_sensor_event(event)
                 if last_sensor_event is None:
                     continue
                 time_difference = datetime.utcnow() - last_sensor_event['created_at']

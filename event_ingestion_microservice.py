@@ -21,7 +21,8 @@ def send_unusual_events(unusual_rules):
 @app.route('/events', methods=['POST'])
 def create_event():
     event_data = request.get_json()
-
+    # add to thread pool
+    # validate data
     unusual_rules = cep.check_event(event_data)
     send_unusual_events(unusual_rules)
 
@@ -33,6 +34,8 @@ def create_event():
 @app.route('/rules', methods=['POST'])
 def create_rule():
     rule_data = request.get_json()
+    # add to thread pool
+    # validate data
     result = rules_crud.create_rule(rule_data)
     result['status'] = 'Rule Created'
     return jsonify(result), 201
