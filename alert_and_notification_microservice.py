@@ -20,8 +20,6 @@ if __name__ == '__main__':
     msg_broker_pass = os.getenv("MESSAGE_BROKER_PASS")
     msg_broker_name = os.getenv("MESSAGE_BROKER_NAME")
 
-    print(msg_broker_user)
-
     # amqp_url = f'amqp://{msg_broker_user}:{msg_broker_pass}@{msg_broker_host}:{msg_broker_port}/%2F'
     # params = pika.URLParameters(amqp_url)
 
@@ -36,6 +34,7 @@ if __name__ == '__main__':
 
     msg_broker.open_connection()
 
+    print("Starting Consume")
     try:
         msg_broker.start_consume()
     finally:

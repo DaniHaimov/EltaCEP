@@ -65,4 +65,5 @@ if __name__ == '__main__':
     msg_broker = ProducerMessageBroker(params, msg_broker_name)
     msg_broker.open_connection()
 
-    app.run()
+    print("Starting Server")
+    app.run(host='0.0.0.0')

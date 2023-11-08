@@ -43,8 +43,9 @@ USER appuser
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 5000
+EXPOSE 5000:5000
 
 # Run the application.
+CMD python3 ./app.py
 #CMD python3 ./event_ingestion_microservice.py &
 #CMD python3 ./alert_and_notification_microservice.py

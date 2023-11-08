@@ -135,9 +135,4 @@ pip install -r requirements.txt
 ```
 
 ## Notes Limitations
-1. When composing the project on docker, it's failed to connect to RabbitMQ container you can run the services in your remote:
-    ```bash
-    python3 ./event_ingestion_microservice.py &
-    python3 ./alert_and_notification_microservice.py &
-    ```
-2. Drone simulator is on development.
+- Drone simulator is on development.
